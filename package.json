@@ -1,0 +1,51 @@
+{
+	"name": "semantic-release-telegram-bot",
+	"version": "1.0.0",
+	"description": "A telegram bot for semantic-release library notifying release statuses",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"semantic-release": "semantic-release",
+		"prepare": "husky install"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/skoropadas/semantic-release-telegram-bot.git"
+	},
+	"keywords": ["semantic-release", "telegram", "bot", "release", "ci", "telegram-bot", "semantic-release-bot"],
+	"author": "Skoropad Aleksandr <skoropadas@ya.ru>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/skoropadas/semantic-release-telegram-bot/issues"
+	},
+	"homepage": "https://github.com/skoropadas/semantic-release-telegram-bot#readme",
+	"peerDependencies": {
+		"semantic-release": ">=11.0.0 <18.0.0"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^12.1.1",
+		"@commitlint/config-conventional": "^12.1.1",
+		"eslint": "^7.24.0",
+		"husky": "^6.0.0",
+		"lint-staged": "^10.5.4",
+		"prettier": "2.2.1",
+		"semantic-release": "^17.4.2"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
+	},
+	"lint-staged": {
+		"*.{js,json,md}": ["prettier --write", "git add"],
+		"*.{css,scss,less}": "stylelint --fix",
+		"*.js": "eslint --fix"
+	},
+	"dependencies": {
+		"@semantic-release/error": "^2.2.0",
+		"lodash": "^4.17.21",
+		"micromatch": "^4.0.4",
+		"node-telegram-bot-api": "^0.52.0"
+	}
+}
