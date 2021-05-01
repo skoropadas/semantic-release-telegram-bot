@@ -12,15 +12,8 @@
 		"type": "git",
 		"url": "git+https://github.com/skoropadas/semantic-release-telegram-bot.git"
 	},
-	"keywords": [
-		"semantic-release",
-		"telegram",
-		"bot",
-		"release",
-		"ci",
-		"telegram-bot",
-		"semantic-release-bot"
-	],
+	"files": ["lib", "index.js"],
+	"keywords": ["semantic-release", "telegram", "bot", "release", "ci", "telegram-bot", "semantic-release-bot"],
 	"author": "Skoropad Aleksandr <skoropadas@ya.ru>",
 	"license": "MIT",
 	"bugs": {
@@ -46,10 +39,7 @@
 		}
 	},
 	"lint-staged": {
-		"*.{js,json,md}": [
-			"prettier --write",
-			"git add"
-		],
+		"*.{js,json,md}": ["prettier --write", "git add"],
 		"*.{css,scss,less}": "stylelint --fix",
 		"*.js": "eslint --fix"
 	},
