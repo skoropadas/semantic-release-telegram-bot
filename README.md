@@ -27,28 +27,29 @@ semantic-release** configuration file](https://github.com/semantic-release/seman
 
 ```json
 {
-	"plugins": [
-		"@semantic-release/commit-analyzer",
-		"@semantic-release/release-notes-generator",
-		[
-			"semantic-release-telegram-bot",
-			{
-				"notifyOnSuccess": false,
-				"notifyOnFail": false,
-				"branches": [
-					{
-						"pattern": "lts/*",
-						"notifyOnFail": true
-					},
-					{
-						"pattern": "master1",
-						"notifyOnSuccess": true,
-						"notifyOnFail": true
-					}
-				]
-			}
-		]
-	]
+    "plugins": [
+        "@semantic-release/commit-analyzer",
+        "@semantic-release/release-notes-generator",
+        [
+            "semantic-release-telegram-bot",
+            {
+                "notifyOnSuccess": false,
+                "notifyOnFail": false,
+                "branches": [
+                    {
+                        "pattern": "lts/*",
+                        "notifyOnFail": true
+                    },
+                    {
+                        "pattern": "master1",
+                        "notifyOnSuccess": true,
+                        "notifyOnFail": true
+                    }
+                ],
+                "chats": ["TELEGRAM_CHAT_ID"]
+            }
+        ]
+    ]
 }
 ```
 
@@ -88,38 +89,38 @@ For example:
 
 ```json
 {
-	"plugins": [
-		"@semantic-release/commit-analyzer",
-		"@semantic-release/release-notes-generator",
-		[
-			"semantic-release-telegram-bot",
-			{
-				"notifyOnSuccess": true,
-				"notifyOnFail": true,
-				"branches": [
-					{
-						"pattern": "beta",
-						"notifyOnFail": false,
-						"successMessage": "Beta version of ${packageName} has been released! Beta version is ${nextRelease.version}"
-					},
-					{
-						"pattern": "master",
-						"notifyOnSuccess": true,
-						"notifyOnFail": true,
-						"failMessage": "Oops :("
-					}
-				],
-				"chats": [
-					"TELEGRAM_CHAT_ID1",
-					{
-						"id": "TELEGRAM_CHAT_ID_WITHOUT_FAILS",
-						"notifyOnFail": false,
-						"successMessage": "New version of ${packageName} has been released! New version is ${nextRelease.version}\n${nextRelease.notes}"
-					}
-				]
-			}
-		]
-	]
+    "plugins": [
+        "@semantic-release/commit-analyzer",
+        "@semantic-release/release-notes-generator",
+        [
+            "semantic-release-telegram-bot",
+            {
+                "notifyOnSuccess": true,
+                "notifyOnFail": true,
+                "branches": [
+                    {
+                        "pattern": "beta",
+                        "notifyOnFail": false,
+                        "successMessage": "Beta version of ${packageName} has been released! Beta version is ${nextRelease.version}"
+                    },
+                    {
+                        "pattern": "master",
+                        "notifyOnSuccess": true,
+                        "notifyOnFail": true,
+                        "failMessage": "Oops :("
+                    }
+                ],
+                "chats": [
+                    "TELEGRAM_CHAT_ID1",
+                    {
+                        "id": "TELEGRAM_CHAT_ID_WITHOUT_FAILS",
+                        "notifyOnFail": false,
+                        "successMessage": "New version of ${packageName} has been released! New version is ${nextRelease.version}\n${nextRelease.notes}"
+                    }
+                ]
+            }
+        ]
+    ]
 }
 ```
 
