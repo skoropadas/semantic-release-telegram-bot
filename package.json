@@ -13,7 +13,7 @@
 		"type": "git",
 		"url": "git+https://github.com/skoropadas/semantic-release-telegram-bot.git"
 	},
-	"files": ["lib", "index.js"],
+	"files": ["README.md", "LICENSE", "lib", "index.js"],
 	"keywords": ["semantic-release", "telegram", "bot", "release", "ci", "telegram-bot", "semantic-release-bot"],
 	"author": "Skoropad Aleksandr <skoropadas@ya.ru>",
 	"license": "MIT",
