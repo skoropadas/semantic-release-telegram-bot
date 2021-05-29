@@ -3,6 +3,7 @@ module.exports = {
 		node: true,
 		commonjs: true,
 		es2021: true,
+		jasmine: true,
 	},
 	extends: 'eslint:recommended',
 	parserOptions: {
