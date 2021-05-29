@@ -18,6 +18,7 @@ module.exports = {
 			files: '*.md',
 			options: {
 				parser: 'markdown',
+				useTabs: false,
 			},
 		},
 		{
