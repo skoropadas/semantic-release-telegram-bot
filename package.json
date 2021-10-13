@@ -2,10 +2,11 @@
 	"name": "semantic-release-telegram-bot",
 	"version": "1.0.0",
 	"description": "A telegram bot for semantic-release library notifying release statuses",
-	"main": "index.js",
+	"main": "lib/index.js",
 	"scripts": {
 		"test": "istanbul test ./node_modules/jasmine/bin/jasmine.js -- --config=jasmine.json",
 		"lint": "eslint",
+		"build": "tsc",
 		"semantic-release": "semantic-release",
 		"prepare": "husky install"
 	},
@@ -13,7 +14,7 @@
 		"type": "git",
 		"url": "git+https://github.com/skoropadas/semantic-release-telegram-bot.git"
 	},
-	"files": ["README.md", "LICENSE", "lib", "index.js"],
+	"files": ["README.md", "LICENSE", "lib"],
 	"keywords": ["semantic-release", "telegram", "bot", "release", "ci", "telegram-bot", "semantic-release-bot"],
 	"author": "Skoropad Aleksandr <skoropadas@ya.ru>",
 	"license": "MIT",
@@ -27,13 +28,16 @@
 	"devDependencies": {
 		"@commitlint/cli": "^12.1.1",
 		"@commitlint/config-conventional": "^12.1.1",
+		"@types/node": "^16.10.4",
+		"@types/semantic-release": "^17.2.2",
 		"eslint": "^7.24.0",
 		"husky": "^6.0.0",
 		"istanbul": "^0.4.5",
 		"jasmine": "^3.7.0",
 		"lint-staged": "^10.5.4",
 		"prettier": "2.2.1",
-		"semantic-release": "^17.4.2"
+		"semantic-release": "^17.4.2",
+		"typescript": "^4.4.4"
 	},
 	"husky": {
 		"hooks": {
@@ -51,6 +55,7 @@
 		"lodash": "^4.17.21",
 		"micromatch": "^4.0.4",
 		"node-telegram-bot-api": "^0.52.0",
+		"nunjucks": "^3.2.3",
 		"telegramify-markdown": "^1.0.1"
 	}
 }

@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"lib": ["es5"],
+		"declaration": true,
+		"outDir": "./lib",
+		"noImplicitAny": false,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strict": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"noImplicitReturns": true,
+		"noUnusedParameters": true,
+		"typeRoots": ["node_modules/@types"],
+		"forceConsistentCasingInFileNames": true
+	},
+	"files": ["index.ts"]
+}

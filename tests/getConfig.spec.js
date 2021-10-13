@@ -1,4 +1,4 @@
-const getConfig = require('../lib/getConfig');
+const getConfig = require('../old/getConfig');
 
 describe('Test getConfig method', () => {
 	it('The chat settings should override the other settings', async () => {
