@@ -23,7 +23,7 @@ export default async function (config: TGBotConfig, context: semantic.Context) {
 	const packageName = config.packageName || SEMANTIC_RELEASE_PACKAGE || npm_package_name;
 
 	for (const notification of asArray(config.notifications)) {
-		const notify: boolean = notification.notifyOnFail ?? !!config.notifyOnFail;
+		const notify: boolean = notification.notifyOnFail ?? config.notifyOnFail ?? false;
 
 		if (notify) {
 			const message: TGBotMessage | TGBotMessageTemplate | undefined =

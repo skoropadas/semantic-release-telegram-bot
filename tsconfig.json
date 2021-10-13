@@ -16,6 +16,7 @@
 		"noImplicitReturns": true,
 		"noUnusedParameters": true,
 		"typeRoots": ["node_modules/@types"],
+		"types": ["jasmine", "node"],
 		"forceConsistentCasingInFileNames": true
 	},
 	"files": ["index.ts"]

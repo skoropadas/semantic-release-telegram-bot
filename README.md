@@ -22,8 +22,8 @@ $ npm install semantic-release-telegram-bot -D
 
 ## Usage
 
-The plugin can be configured in the [**
-semantic-release** configuration file](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration):
+The plugin can be configured in the [
+semantic-release configuration file](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration):
 
 ```json
 {
@@ -33,31 +33,17 @@ semantic-release** configuration file](https://github.com/semantic-release/seman
         [
             "semantic-release-telegram-bot",
             {
-                "notifyOnSuccess": false,
-                "notifyOnFail": false,
-                "branches": [
+                "notifications": [
                     {
-                        "pattern": "lts/*",
-                        "notifyOnFail": true
-                    },
-                    {
-                        "pattern": "master1",
-                        "notifyOnSuccess": true,
-                        "notifyOnFail": true
+                        "chatIds": "123456",
+                        "branch": "release/*.x.x"
                     }
-                ],
-                "chats": ["TELEGRAM_CHAT_ID"]
+                ]
             }
         ]
     ]
 }
 ```
-
-With this example:
-
--   Telegram notifications are sent on a failure release from branches matching "lts/\*"
--   Telegram notifications are sent on a failure or successful release from branch "master"
--   Telegram notifications are skipped on all other branches
 
 ## Configuration
 
@@ -72,20 +58,67 @@ the token value to this variable.
 
 ### Options
 
-| Option            | Description                                                                                                                                                                                                                                                                                       | Default                                      |
-| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------- |
-| `notifyOnSuccess` | Determines if a successful release should trigger a telegram message to be sent. If `false` this plugin does nothing on success.                                                                                                                                                                  | false                                        |
-| `notifyOnFail`    | Determines if a failed release should trigger a telegram message to be sent. If `false` this plugin does nothing on fail.                                                                                                                                                                         | false                                        |
-| `successMessage`  | Provides a template for the telegram message object on success when `notifyOnSuccess` is `true`.                                                                                                                                                                                                  | undefined                                    |
-| `failMessage`     | Provides a template for the telegram message object on fail when `notifyOnFail` is `true`.                                                                                                                                                                                                        | undefined                                    |
-| `packageName`     | Override or add package name instead of npm package name                                                                                                                                                                                                                                          | SEMANTIC_RELEASE_PACKAGE or npm package name |
-| `branches`        | Allow to specify a custom configuration for branches which match a given pattern. For every branches matching a branch config, the config will be merged with the one put at the root. A key "pattern" used to filter the branch using glob expression must be contained in every branchesConfig. | []                                           |
-| `chats`           | Allow to specify a custom configuration for chats which match a given id. For every chats matching a chat config, the config will be merged with the one put at the root. A key "id" used to filter the chat.                                                                                     | []                                           |
+| Option            | Description                                                                                                                                                                                 | Required | Default                                      |
+| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------- | :------------------------------------------- |
+| `packageName`     | Override or add package name instead of npm package name                                                                                                                                    | no       | SEMANTIC_RELEASE_PACKAGE or npm package name |
+| `notifyOnSuccess` | Determines if a successful release should trigger a telegram message to be sent. If `false` this plugin does nothing on success. Can be overwritten by the same property in `notifications` | no       | true                                         |
+| `notifyOnFail`    | Determines if a failed release should trigger a telegram message to be sent. If `false` this plugin does nothing on fail. Can be overwritten by the same property in `notifications`        | no       | false                                        |
+| `success`         | Provides a template for the telegram message on success when `notifyOnSuccess` is `true`.                                                                                                   | no       | DEFAULT SUCCESS MESSAGE                      |
+| `fail`            | Provides a template for the telegram message on fail when `notifyOnFail` is `true`.                                                                                                         | no       | DEFAULT FAIL MESSAGE                         |
+| `notifications`   | Provides a list of notification objects that can be flexibly configured                                                                                                                     | yes      | []                                           |
 
-You can set various settings for chats, branches, and also set global settings. In this hierarchy, the chat settings are
-taken into account first, then the branches, and only after the global settings.
+In the `notification` property, you can pass an object with the following values
 
-For example:
+| Option            | Description                                                                                                                                                                                 | Required | Default                 |
+| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------- | :---------------------- |
+| `notifyOnSuccess` | Determines if a successful release should trigger a telegram message to be sent. If `false` this plugin does nothing on success. Can be overwritten by the same property in `notifications` | no       | true                    |
+| `notifyOnFail`    | Determines if a failed release should trigger a telegram message to be sent. If `false` this plugin does nothing on fail. Can be overwritten by the same property in `notifications`        | no       | false                   |
+| `success`         | Provides a template for the telegram message on success when `notifyOnSuccess` is `true`.                                                                                                   | no       | DEFAULT SUCCESS MESSAGE |
+| `fail`            | Provides a template for the telegram message on fail when `notifyOnFail` is `true`.                                                                                                         | no       | DEFAULT FAIL MESSAGE    |
+| `chatIds`         | One or more telegram chat IDs, you can also pass the name of the environment variable that contains the chat id                                                                             | yes      | undefined               |
+| `branch`          | Describes a pattern for filtering a branch using a glob expression.                                                                                                                         | yes      | undefined               |
+
+`success` and `failure` messages can be configured by passing an object with custom message, or a path to a template file.
+
+#### Inline message
+
+Here is a description of the object that can be passed to the `success` or `fail` property to describe the inline message
+
+| Option       | Description                                                           | Required | Default    |
+| :----------- | :-------------------------------------------------------------------- | :------- | :--------- |
+| `message`    | Notification message                                                  | yes      | undefined  |
+| `format`     | Message format, may have `html` or `markdown` values                  | no       | 'markdown' |
+| `customData` | An object with custom values that can be used for output in a message | no       | undefined  |
+
+#### Message template
+
+If you need more functionality, you can pass a `path` to the template file that will be rendered using [nunjucks](https://mozilla.github.io/nunjucks/),
+you will also have access to the `context`, and all a functionality that [nunjucks](https://mozilla.github.io/nunjucks/) provides.
+
+Here is a description of the object with `path` that can be passed to the `success` or `fail` property
+
+| Option       | Description                                                           | Required | Default   |
+| :----------- | :-------------------------------------------------------------------- | :------- | :-------- |
+| `path`       | Path to a message template                                            | yes      | undefined |
+| `customData` | An object with custom values that can be used for output in a message | no       | undefined |
+
+#### Context
+
+A special `context` is available for each message, which provides access to the properties described by you in
+`customData` property, as well as to the following values
+
+| Option        | Description                                                                                                                                                               |
+| :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `packageName` | The name of the current package                                                                                                                                           |
+| `branch`      | A branch object. You can find its description [here](https://github.com/semantic-release/semantic-release/blob/master/docs/developer-guide/plugin.md#verifyconditions)    |
+| `lastRelease` | A lastRelease object. You can find its description [here](https://github.com/semantic-release/semantic-release/blob/master/docs/developer-guide/plugin.md#analyzecommits) |
+| `nextRelease` | A nextRelease object. You can find its description [here](https://github.com/semantic-release/semantic-release/blob/master/docs/developer-guide/plugin.md#verifyrelease)  |
+| `commits`     | A list of commits. You can find its description [here](https://github.com/semantic-release/semantic-release/blob/master/docs/developer-guide/plugin.md#analyzecommits)    |
+| `error`       | A list of native `Error` objects, available only for `fail` messages                                                                                                      |
+
+## Examples
+
+### Sending messages to specific chats
 
 ```json
 {
@@ -95,29 +128,89 @@ For example:
         [
             "semantic-release-telegram-bot",
             {
-                "notifyOnSuccess": true,
-                "notifyOnFail": true,
-                "branches": [
+                "notifications": [
                     {
-                        "pattern": "beta",
-                        "notifyOnFail": false,
-                        "successMessage": "Beta version of ${packageName} has been released! Beta version is ${nextRelease.version}"
+                        "chatIds": "PublicChatId",
+                        "branch": "release/*.x.x"
                     },
                     {
-                        "pattern": "master",
-                        "notifyOnSuccess": true,
-                        "notifyOnFail": true,
-                        "failMessage": "Oops :("
-                    }
-                ],
-                "chats": [
-                    "TELEGRAM_CHAT_ID1",
+                        "chatIds": "PrivateChatId",
+                        "branch": "release/*.x.x",
+                        "notifyOnSuccess": false,
+                        "notifyOnFail": true
+                    },
                     {
-                        "id": "TELEGRAM_CHAT_ID_WITHOUT_FAILS",
-                        "notifyOnFail": false,
-                        "successMessage": "New version of ${packageName} has been released! New version is ${nextRelease.version}\n${nextRelease.notes}"
+                        "chatIds": "PrivateChatId",
+                        "branch": "beta/*.x.x",
+                        "notifyOnSuccess": true,
+                        "notifyOnFail": true
                     }
                 ]
+            }
+        ]
+    ]
+}
+```
+
+In this example:
+
+-   A success message will be sent to `release/*.x.x` branches
+-   Fails in `release/*.x.x` branches will be sent to `PrivateChatId`
+-   Successes and fails messages from `beta/*.x.x` branches will be sent to `PrivateChatId`
+
+### Custom inline template
+
+```json
+{
+    "plugins": [
+        "@semantic-release/commit-analyzer",
+        "@semantic-release/release-notes-generator",
+        [
+            "semantic-release-telegram-bot",
+            {
+                "success": {
+                    "message": "Here is a new release of ${packageName} library and value ${myVariable} of my custom variable",
+                    "customData": {
+                        "myVariable": "myVariable"
+                    }
+                }
+            }
+        ]
+    ]
+}
+```
+
+### Custom template
+
+Be careful when describing your templates, you must support [html](https://core.telegram.org/bots/api#html-style) or [markdown](https://core.telegram.org/bots/api#markdownv2-style) telegram syntax.
+
+Look at the [nunjucks docs](https://mozilla.github.io/nunjucks/templating.html) to see what functionality you can use
+
+```md
+<!--custom-success-template.html-->
+
+<b>A new version of {{packageName}} has been released!</b>
+
+Custom change log:
+
+{% for commit in commits %}
+• ({{ commit.subject }}): {{ commit.message }}
+{% endfor %}
+```
+
+And specify the path to the template
+
+```json
+{
+    "plugins": [
+        "@semantic-release/commit-analyzer",
+        "@semantic-release/release-notes-generator",
+        [
+            "semantic-release-telegram-bot",
+            {
+                "success": {
+                    "path": "./path/to/custom-success-template.html"
+                }
             }
         ]
     ]

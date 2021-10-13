@@ -2,14 +2,15 @@ import {TGBotMessage, TGBotMessageTemplate} from '../interfaces/message';
 import {TGBotRenderedMessage} from '../interfaces/rendered-message';
 import {isMessage} from '../helpers/is-message';
 import {template} from 'lodash';
-import {dirname, extname} from 'path';
+import {extname} from 'path';
 import * as nunjucks from 'nunjucks';
 import * as telegramifyMarkdown from 'telegramify-markdown';
 
 export function renderMessage(message: TGBotMessage | TGBotMessageTemplate, context: Record<string, unknown> = {}): TGBotRenderedMessage {
 	if (isMessage(message)) {
+		const templated: string = template(message.message)({...context, ...message.customData})
 		return {
-			message: telegramifyMarkdown(template(message.message)({...context, ...message.customData})),
+			message: telegramifyMarkdown(templated).trim(),
 			format: message.format ?? 'markdown'
 		}
 	} else {
@@ -21,7 +22,7 @@ export function renderMessage(message: TGBotMessage | TGBotMessageTemplate, cont
 }
 
 function renderFromTemplate(template: TGBotMessageTemplate, context: Record<string, unknown>): string {
-	nunjucks.configure(dirname(template.path), {
+	nunjucks.configure(process.cwd(), {
 		autoescape: false,
 		trimBlocks: true,
 	});
