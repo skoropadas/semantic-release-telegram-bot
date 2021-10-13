@@ -18,7 +18,7 @@ jobs:
                         - ./node_modules
     test:
         docker:
-            -   image: circleci/node:10.18.0
+            -   image: circleci/node:14.9.0
         steps:
             - checkout
             -   restore_cache:
@@ -30,7 +30,7 @@ jobs:
                         npm run test
     deploy:
         docker:
-            -   image: circleci/node:10.18.0
+            -   image: circleci/node:14.9.0
         steps:
             - checkout
             -   restore_cache:
