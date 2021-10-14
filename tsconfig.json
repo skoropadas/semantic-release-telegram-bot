@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"baseUrl": "./",
 		"module": "commonjs",
+		"target": "ES5",
 		"moduleResolution": "node",
 		"lib": ["es5"],
 		"declaration": true,

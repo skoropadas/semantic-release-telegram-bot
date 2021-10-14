@@ -5,7 +5,6 @@ import * as SemanticReleaseError from '@semantic-release/error';
 
 export function verifyConditions(config: TGBotConfig, {logger, env}: semantic.Context) {
 	const botToken: string | undefined = process.env[TG_BOT_TOKEN_ENV];
-	console.log(config);
 
 	if (!botToken) {
 		logger.log(`${TG_BOT_TOKEN_ENV} has not been defined.`);
