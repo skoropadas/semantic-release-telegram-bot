@@ -35,13 +35,13 @@ describe('Render template message', () => {
 	describe('Markdown', () => {
 		it('Message should render correctly', async () => {
 			const renderedMessage: TGBotRenderedMessage = renderMessage({path: './tests/common/message.md'});
-			expect(renderedMessage.message).toBe('*Title*\r\nContent');
+			expect(renderedMessage.message).toBe('_Title_\r\nContent');
 			expect(renderedMessage.format).toBe('markdown');
 		});
 
 		it('Message should render context correctly', async () => {
 			const renderedMessage: TGBotRenderedMessage = renderMessage({path: './tests/common/message-context.md'}, {title: 'Title', content: 'Content'});
-			expect(renderedMessage.message).toBe('*Title*\r\nContent');
+			expect(renderedMessage.message).toBe('_Title_\r\nContent');
 			expect(renderedMessage.format).toBe('markdown');
 		});
 	})
