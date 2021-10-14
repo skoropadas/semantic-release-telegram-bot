@@ -40,14 +40,14 @@ describe('Render template message', () => {
 		it('Message should render correctly', async () => {
 			const renderedMessage: TGBotRenderedMessage = renderMessage({path: './tests/common/message.md'});
 
-			expect(renderedMessage.message).toBe('_Title_\r\nContent');
+			expect(renderedMessage.message.replace(/\s+/g, "")).toBe('_Title_Content');
 			expect(renderedMessage.format).toBe('markdown');
 		});
 
 		it('Message should render context correctly', async () => {
 			const renderedMessage: TGBotRenderedMessage = renderMessage({path: './tests/common/message-context.md'}, {title: 'Title', content: 'Content'});
 
-			expect(renderedMessage.message).toBe('_Title_\r\nContent');
+			expect(renderedMessage.message.replace(/\s+/g, "")).toBe('_Title_Content');
 			expect(renderedMessage.format).toBe('markdown');
 		});
 	})
@@ -56,14 +56,14 @@ describe('Render template message', () => {
 		it('Message should render correctly', async () => {
 			const renderedMessage: TGBotRenderedMessage = renderMessage({path: './tests/common/message.html'});
 
-			expect(renderedMessage.message).toBe('<b>Title</b>\r\nContent');
+			expect(renderedMessage.message.replace(/\s+/g, "")).toBe('<b>Title</b>Content');
 			expect(renderedMessage.format).toBe('html');
 		});
 
 		it('Message should render context correctly', async () => {
 			const renderedMessage: TGBotRenderedMessage = renderMessage({path: './tests/common/message-context.html'}, {title: 'Title', content: 'Content'});
 
-			expect(renderedMessage.message).toBe('<b>Title</b>\r\nContent');
+			expect(renderedMessage.message.replace(/\s+/g, "")).toBe('<b>Title</b>Content');
 			expect(renderedMessage.format).toBe('html');
 		});
 	})
