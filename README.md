@@ -160,6 +160,9 @@ In this example:
 
 ### Custom inline template
 
+Here is an example of the inline template, it uses [template](https://lodash.com/docs/4.17.15#template) function from `lodash`
+to render your message.
+
 ```json
 {
     "plugins": [
