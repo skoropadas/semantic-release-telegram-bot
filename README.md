@@ -138,7 +138,6 @@ A special `context` is available for each message, which provides access to the 
                 "notifications": [
                     {
                         "chatIds": "PrivateChatId",
-                        "branch": "release/*",
                         "notifyOnFail": true,
                         "notifyOnSuccess": false,
                         "fail": {
@@ -162,7 +161,7 @@ A special `context` is available for each message, which provides access to the 
 
 In this example:
 
--   Only a failure message will be sent to `PrivateChatId` chat, also the messages changed to `Oops!`
+-   A failure messages from all branches will be sent to `PrivateChatId` chat, also the messages changed to `Oops!`
 -   Success messages from `rc` branches will be sent to `PrivateChatId` chat
 -   Only a success message from `release` branches will be sent to `PublicChatId` chat
 -   All success messages changed to `Here is the new release!`
