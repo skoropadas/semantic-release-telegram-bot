@@ -39,11 +39,11 @@ jobs:
             - checkout
             - restore_cache:
                   key: dependency-cache-{{ checksum "package-lock.json" }}
+            -   attach_workspace:
+                    at: .
             - run:
                   name: Semantic Release
                   command: npm run semantic-release
-            -   attach_workspace:
-                    at: .
 workflows:
     version: 2.1
     build-test-deploy:
