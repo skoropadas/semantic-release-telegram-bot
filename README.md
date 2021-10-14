@@ -118,7 +118,7 @@ A special `context` is available for each message, which provides access to the 
 | `lastRelease` | A lastRelease object. You can find its description [here](https://github.com/semantic-release/semantic-release/blob/master/docs/developer-guide/plugin.md#analyzecommits) |
 | `nextRelease` | A nextRelease object. You can find its description [here](https://github.com/semantic-release/semantic-release/blob/master/docs/developer-guide/plugin.md#verifyrelease)  |
 | `commits`     | A list of commits. You can find its description [here](https://github.com/semantic-release/semantic-release/blob/master/docs/developer-guide/plugin.md#analyzecommits)    |
-| `error`       | A list of native `Error` objects, available only for `fail` messages                                                                                                      |
+| `errors`       | A list of native `Error` objects, available only for `fail` messages                                                                                                      |
 
 ## Examples
 
