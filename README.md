@@ -67,6 +67,8 @@ the token value to this variable.
 | `fail`            | Provides a template for the telegram message on fail when `notifyOnFail` is `true`.                                                                                                         | no       | DEFAULT FAIL MESSAGE                         |
 | `notifications`   | Provides a list of notification objects that can be flexibly configured                                                                                                                     | yes      | []                                           |
 
+### Notification object
+
 In the `notification` property, you can pass an object with the following values
 
 | Option            | Description                                                                                                                                                                                 | Required | Default                 |
@@ -76,7 +78,9 @@ In the `notification` property, you can pass an object with the following values
 | `success`         | Provides a template for the telegram message on success when `notifyOnSuccess` is `true`.                                                                                                   | no       | DEFAULT SUCCESS MESSAGE |
 | `fail`            | Provides a template for the telegram message on fail when `notifyOnFail` is `true`.                                                                                                         | no       | DEFAULT FAIL MESSAGE    |
 | `chatIds`         | One or more telegram chat IDs, you can also pass the name of the environment variable that contains the chat id                                                                             | yes      | undefined               |
-| `branch`          | Describes a pattern for filtering a branch using a glob expression.                                                                                                                         | yes      | undefined               |
+| `branch`          | Describes a pattern for filtering a branch using a glob expression.                                                                                                                         | no       | undefined               |
+
+### Template options
 
 `success` and `failure` messages can be configured by passing an object with custom message, or a path to a template file.
 
@@ -128,22 +132,26 @@ A special `context` is available for each message, which provides access to the 
         [
             "semantic-release-telegram-bot",
             {
+                "success": {
+                    "message": "Here is the new release!"
+                },
                 "notifications": [
                     {
-                        "chatIds": "PublicChatId",
-                        "branch": "release/*.x.x"
-                    },
-                    {
                         "chatIds": "PrivateChatId",
-                        "branch": "release/*.x.x",
+                        "branch": "release/*",
+                        "notifyOnFail": true,
                         "notifyOnSuccess": false,
-                        "notifyOnFail": true
+                        "fail": {
+                            "message": "Oops!"
+                        }
                     },
                     {
                         "chatIds": "PrivateChatId",
-                        "branch": "beta/*.x.x",
-                        "notifyOnSuccess": true,
-                        "notifyOnFail": true
+                        "branch": "rc/*"
+                    },
+                    {
+                        "chatIds": "PublicChatId",
+                        "branch": "release/*"
                     }
                 ]
             }
@@ -154,9 +162,10 @@ A special `context` is available for each message, which provides access to the 
 
 In this example:
 
--   A success message will be sent to `release/*.x.x` branches
--   Fails in `release/*.x.x` branches will be sent to `PrivateChatId`
--   Successes and fails messages from `beta/*.x.x` branches will be sent to `PrivateChatId`
+-   Only a failure message will be sent to `PrivateChatId` chat, also the messages changed to `Oops!`
+-   Success messages from `rc` branches will be sent to `PrivateChatId` chat
+-   Only a success message from `release` branches will be sent to `PublicChatId` chat
+-   All success messages changed to `Here is the new release!`
 
 ### Custom inline template
 
