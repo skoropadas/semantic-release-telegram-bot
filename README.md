@@ -161,7 +161,7 @@ A special `context` is available for each message, which provides access to the 
 
 In this example:
 
--   A failure messages from all branches will be sent to `PrivateChatId` chat, also the messages changed to `Oops!`
+-   Failure messages from all branches will be sent to `PrivateChatId` chat, also the messages changed to `Oops!`
 -   Success messages from `rc` branches will be sent to `PrivateChatId` chat
 -   Only a success message from `release` branches will be sent to `PublicChatId` chat
 -   All success messages changed to `Here is the new release!`
