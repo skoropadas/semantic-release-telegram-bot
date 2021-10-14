@@ -8,7 +8,7 @@ import {renderMessage} from './common/render-message';
 import {sendMessage} from './common/send-message';
 import {defaultFailMessage} from './common/default-fail-message';
 
-export default async function (config: TGBotConfig, context: semantic.Context) {
+export async function fail(config: TGBotConfig, context: semantic.Context) {
 	const {
 		logger,
 		// @ts-ignore

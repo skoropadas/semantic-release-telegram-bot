@@ -8,7 +8,7 @@ import {TGBotRenderedMessage} from './interfaces/rendered-message';
 import {sendMessage} from './common/send-message';
 import {defaultSuccessMessage} from './common/default-success-message';
 
-export default async function (config: TGBotConfig, context: semantic.Context) {
+export async function success(config: TGBotConfig, context: semantic.Context) {
 	const {
 		logger,
 		env: {SEMANTIC_RELEASE_PACKAGE, npm_package_name},

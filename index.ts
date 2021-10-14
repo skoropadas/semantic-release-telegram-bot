@@ -1,5 +1,3 @@
-import verifyConditions from './src/verify-conditions';
-import success from './src/success';
-import fail from './src/fail';
-
-export default {verifyConditions, success, fail};
+export * from './src/fail';
+export * from './src/success';
+export * from './src/verify-conditions';

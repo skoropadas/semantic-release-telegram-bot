@@ -3,7 +3,7 @@ import * as semantic from 'semantic-release';
 import {TG_BOT_PACKAGE_NAME, TG_BOT_TOKEN_ENV} from './common/constants';
 import * as SemanticReleaseError from '@semantic-release/error';
 
-export default function (config: TGBotConfig, {logger, env}: semantic.Context) {
+export function verifyConditions(config: TGBotConfig, {logger, env}: semantic.Context) {
 	const botToken: string | undefined = process.env[TG_BOT_TOKEN_ENV];
 	console.log(config);
 
